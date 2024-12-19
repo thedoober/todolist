@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'Password766@')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['let-todos.onrender.com']
+ALLOWED_HOSTS = ['todolist-247d.onrender.com']
 
 
 # Application definition
