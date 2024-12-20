@@ -12,11 +12,13 @@ def index(request):
 #   if request.user.is_authenticated:
     if request.method=="POST":
         task =request.POST.get('task')
-        if task!= None:
-          new_todo = todo(user=request.user, todo_name=task)
-          new_todo.save()
+        if len(task) <  3:
+            messages.error(request, "Please write some thing meaningful")
+            return redirect('home')
         else:
-            return render(request, index)
+            
+            new_todo = todo(user=request.user, todo_name=task)
+            new_todo.save()
 
     all_todos =todo.objects.filter(user=request.user) 
     context ={
@@ -35,8 +37,8 @@ def register(request):
         password = request.POST.get("password")
 
         
-        if len(password)<3:
-            messages.warning(request, "password length is less than 3")
+        if len(password)<5:
+            messages.warning(request, "password length is less than 5")
             return redirect("/register")
         
         get_user = User.objects.filter(email =email)
@@ -80,6 +82,9 @@ def tododelete(request, name):
     
     
 def todoupdate(request, name):
+    if not name:
+        return HttpResponse("Wrong Input")
+
     get_todo = todo.objects.get(user= request.user, todo_name=name)
     get_todo.status = True
     get_todo.save()

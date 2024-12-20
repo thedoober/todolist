@@ -15,6 +15,14 @@
             {% if user %}
             <h2>{{user}} make your todo list</h2>
             {% endif %}
+            {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-warning  message.tags alert-dismissible fade show" role="alert">
+          <strong>{{ message }}</strong> 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
             <h4 class="text-center my-3 pb-3">To Do App</h4>
 
             <form method="POST" class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
@@ -50,8 +58,15 @@
                     <td>In progress</td>
                     {% endif %}
                     <td>
-                    <a href="{% url "delete" i.todo_name %}"><button type="submit" class="btn btn-danger">Delete</button></a>
+                     
+  
+
+                 {% if i.todo_name %}
+                    <a href="{% url "delete"  i.todo_name %}"><button type="submit" class="btn btn-danger">Delete</button></a>
                     <a href="{% url "update" i.todo_name %}"><button type="submit" class="btn btn-success ms-1">Finished</button></a>
+                 {% comment %} {% else %} {% endcomment %}
+                         
+                 {% endif %}
                   </td>
                 </tr>
                   {% endfor %}
